@@ -1,4 +1,6 @@
 import urllib.parse
+import random
+
 import requests
 import cachecontrol
 
@@ -32,6 +34,14 @@ class Comic:
 		return map(cls, range(latest.number, 0, -1))
 
 	@classmethod
+	def random(cls):
+		"""
+		Return a randomly-selected comic
+		"""
+		latest = cls.latest()
+		return cls(random.randint(1, latest.number))
+
+	@classmethod
 	def search(cls, text):
 		"""
 		Find a comic with the matching text
@@ -57,4 +67,6 @@ class Comic:
 if 'pmxbot' in globals():
 	@pmxbot.core.command('xkcd')
 	def xkcd(conn, event, channel, nick, rest):
+		if not rest:
+			return Comic.random()
 		return Comic.search(rest)

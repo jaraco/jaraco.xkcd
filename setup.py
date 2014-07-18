@@ -17,6 +17,15 @@ setup_params = dict(
 	url="https://bitbucket.org/jaraco/jaraco.xkcd",
 	packages=setuptools.find_packages(),
 	namespace_packages=['jaraco'],
+	entry_points={
+		'pmxbot_handlers': [
+			'xkcd = jaraco.xkcd',
+		],
+	},
+	install_requires=[
+		'requests',
+		'cachecontrol',
+	],
 	setup_requires=[
 		'hgtools',
 		'pytest-runner',

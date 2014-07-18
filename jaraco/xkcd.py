@@ -2,6 +2,11 @@ import urllib.parse
 import requests
 import cachecontrol
 
+try:
+	import pmxbot.core
+except ImportError:
+	pass
+
 session = cachecontrol.CacheControl(requests.session())
 
 class Comic:
@@ -47,3 +52,9 @@ class Comic:
 
 	def __str__(self):
 		return 'xkcd:{self.title} ({self.img})'.format(**locals())
+
+
+if 'pmxbot' in globals():
+	@pmxbot.core.command('xkcd')
+	def xkcd(conn, event, channel, nick, rest):
+		return Comic.search(rest)

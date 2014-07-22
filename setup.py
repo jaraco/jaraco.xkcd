@@ -32,6 +32,7 @@ setup_params = dict(
 	],
 	tests_require=[
 		'pytest',
+		'jaraco.timing',
 	],
 	classifiers = [
 		"Development Status :: 5 - Production/Stable",

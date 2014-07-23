@@ -24,7 +24,6 @@ setup_params = dict(
 	},
 	install_requires=[
 		'requests',
-		'cachecontrol',
 	],
 	setup_requires=[
 		'hgtools',

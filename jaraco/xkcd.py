@@ -2,19 +2,25 @@ import urllib.parse
 import random
 
 import requests
-import cachecontrol
 
 try:
 	import pmxbot.core
 except ImportError:
 	pass
 
-session = cachecontrol.CacheControl(requests.session())
+session = requests.session()
 
 class Comic:
 	root = 'http://xkcd.com/'
 
+	__cache = {}
+
+	def __new__(cls, number):
+		return cls.__cache.setdefault(number, super().__new__(cls))
+
 	def __init__(self, number):
+		if vars(self):
+			return
 		path = '{number}/info.0.json'.format(**locals())
 		url = urllib.parse.urljoin(self.root, path)
 		resp = session.get(url)

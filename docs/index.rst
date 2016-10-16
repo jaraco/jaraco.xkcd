@@ -1,4 +1,4 @@
-Welcome to skeleton documentation!
+Welcome to jaraco.xkcd documentation!
 ========================================
 
 .. toctree::
@@ -7,7 +7,7 @@ Welcome to skeleton documentation!
    history
 
 
-.. automodule:: skeleton
+.. automodule:: jaraco.xkcd
     :members:
     :undoc-members:
     :show-inheritance:

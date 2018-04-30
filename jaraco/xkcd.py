@@ -12,7 +12,7 @@ session = requests.session()
 
 
 class Comic:
-	root = 'http://xkcd.com/'
+	root = 'https://xkcd.com/'
 
 	__cache = {}
 

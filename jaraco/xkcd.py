@@ -2,6 +2,7 @@ import urllib.parse
 import random
 import importlib
 import contextlib
+import datetime
 
 import jaraco.text
 import requests
@@ -24,7 +25,24 @@ class Comic:
 		url = urllib.parse.urljoin(self.root, path)
 		resp = session.get(url)
 		resp.raise_for_status()
-		vars(self).update(resp.json())
+		vars(self).update(self._fix_numbers(resp.json()))
+		self.date = datetime.date(self.year, self.month, self.day)
+
+	@staticmethod
+	def _fix_numbers(ob):
+		"""
+		Given a dict-like object ob, ensure any integers are integers.
+		"""
+		def make_int(val):
+			try:
+				return int(val)
+			except Exception:
+				return val
+
+		return (
+			(key, make_int(value))
+			for key, value in ob.items()
+		)
 
 	@classmethod
 	def latest(cls):
@@ -56,6 +74,10 @@ class Comic:
 (https://imgs.xkcd.com/comics/password_strength.png)
 		>>> Comic.search('Horse battery')
 		Comic(936)
+		>>> Comic.search('ISO 8601')
+		Comic(1179)
+		>>> Comic.search('2013-02-27').title
+		'ISO 8601'
 		"""
 		matches = (
 			comic

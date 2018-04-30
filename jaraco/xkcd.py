@@ -1,12 +1,9 @@
 import urllib.parse
 import random
+import importlib
+import contextlib
 
 import requests
-
-try:
-	import pmxbot.core
-except ImportError:
-	pass
 
 session = requests.session()
 
@@ -71,7 +68,9 @@ class Comic:
 		return 'xkcd:{self.title} ({self.img})'.format(**locals())
 
 
-if 'pmxbot' in globals():
-	@pmxbot.core.command()
+with contextlib.suppress(ImportError):
+	core = importlib.import_module('pmxbot.core')
+
+	@core.command()
 	def xkcd(rest):
 		return Comic.search(rest) if rest else Comic.random()

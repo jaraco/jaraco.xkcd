@@ -34,6 +34,7 @@ params = dict(
 	python_requires='>=3.5',
 	install_requires=[
 		'requests',
+		'jaraco.text',
 	],
 	extras_require={
 		'testing': [

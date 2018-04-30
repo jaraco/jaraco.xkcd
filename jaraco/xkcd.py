@@ -3,6 +3,7 @@ import random
 import importlib
 import contextlib
 
+import jaraco.text
 import requests
 
 session = requests.session()
@@ -53,7 +54,7 @@ class Comic:
 		title_matches = (
 			comic
 			for comic in cls.all()
-			if text.lower() in comic.title.lower()
+			if text in jaraco.text.FoldedCase(comic.title)
 		)
 		return next(title_matches, None)
 

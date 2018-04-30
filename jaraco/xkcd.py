@@ -73,7 +73,7 @@ class Comic:
 
 if 'pmxbot' in globals():
 	@pmxbot.core.command('xkcd')
-	def xkcd(conn, event, channel, nick, rest):
+	def xkcd(rest):
 		if not rest:
 			return Comic.random()
 		return Comic.search(rest)

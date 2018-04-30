@@ -1,6 +1,7 @@
 from jaraco import xkcd
 from jaraco import timing
 
+
 def test_requests_cached():
 	"""
 	A second pass loading Comics should be substantially faster than the

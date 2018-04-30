@@ -10,6 +10,7 @@ except ImportError:
 
 session = requests.session()
 
+
 class Comic:
 	root = 'http://xkcd.com/'
 

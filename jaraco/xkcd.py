@@ -50,6 +50,9 @@ class Comic:
 	def search(cls, text):
 		"""
 		Find a comic with the matching text
+
+		>>> print(Comic.search('password strength'))
+		xkcd:Password Strength (https://imgs.xkcd.com/comics/password_strength.png)
 		"""
 		title_matches = (
 			comic

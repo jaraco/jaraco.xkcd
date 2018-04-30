@@ -52,24 +52,31 @@ class Comic:
 		Find a comic with the matching text
 
 		>>> print(Comic.search('password strength'))
-		xkcd:Password Strength (https://imgs.xkcd.com/comics/password_strength.png)
+		xkcd 936:Password Strength \
+(https://imgs.xkcd.com/comics/password_strength.png)
+		>>> Comic.search('Horse battery')
+		Comic(936)
 		"""
-		title_matches = (
+		matches = (
 			comic
 			for comic in cls.all()
-			if text in jaraco.text.FoldedCase(comic.title)
+			if text in comic.full_text
 		)
-		return next(title_matches, None)
+		return next(matches, None)
 
 	@property
 	def number(self):
 		return self.num
 
+	@property
+	def full_text(self):
+		return jaraco.text.FoldedCase('|'.join(map(str, vars(self).values())))
+
 	def __repr__(self):
 		return '{self.__class__.__name__}({self.number})'.format(**locals())
 
 	def __str__(self):
-		return 'xkcd:{self.title} ({self.img})'.format(**locals())
+		return 'xkcd {self.number}:{self.title} ({self.img})'.format(**locals())
 
 
 with contextlib.suppress(ImportError):

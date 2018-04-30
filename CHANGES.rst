@@ -1,3 +1,8 @@
+1.3
+===
+
+Comic searches now search the full text of the comics.
+
 1.2.1
 =====
 

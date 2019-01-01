@@ -1,5 +1,5 @@
 from jaraco import xkcd
-from jaraco import timing
+from tempora import timing
 
 
 def test_requests_cached():

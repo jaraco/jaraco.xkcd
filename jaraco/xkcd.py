@@ -3,20 +3,16 @@ import random
 import importlib
 import contextlib
 import datetime
-import functools
 
 import jaraco.text
 import requests
+import cachecontrol.caches.file_cache
 
-session = requests.session()
+session = cachecontrol.CacheControl(requests.Session())
 
 
 class Comic:
     root = 'https://xkcd.com/'
-
-    @functools.lru_cache()  # type: ignore
-    def __new__(cls, number):
-        return super().__new__(cls)
 
     def __init__(self, number):
         if vars(self):

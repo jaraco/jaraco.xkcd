@@ -29,8 +29,7 @@ class Comic:
     def __init__(self, number):
         if vars(self):
             return
-        path = '{number}/info.0.json'.format(**locals())
-        resp = session.get(path)
+        resp = session.get(f'{number}/info.0.json')
         if number == 404:
             return
         resp.raise_for_status()
@@ -105,10 +104,10 @@ class Comic:
         return jaraco.text.FoldedCase('|'.join(map(str, vars(self).values())))
 
     def __repr__(self):
-        return '{self.__class__.__name__}({self.number})'.format(**locals())
+        return f'{self.__class__.__name__}({self.number})'
 
     def __str__(self):
-        return 'xkcd {self.number}:{self.title} ({self.img})'.format(**locals())
+        return f'xkcd {self.number}:{self.title} ({self.img})'
 
 
 with contextlib.suppress(ImportError):

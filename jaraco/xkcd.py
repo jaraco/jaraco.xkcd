@@ -29,9 +29,33 @@ session = cachecontrol.CacheControl(
 
 class Comic:
     def __init__(self, number):
-        resp = session.get(f'{number}/info.0.json')
-        if number == 404:
+        self._404(number) or self._load(number)
+
+    def _404(self, number):
+        """
+        The 404 comic is not found.
+        >>> Comic(404)
+        Comic(404)
+        >>> print(Comic(404))
+        xkcd 404:Not Found (None)
+        >>> print(Comic(404).date)
+        2008-04-01
+        """
+        if number != 404:
             return
+
+        vars(self).update(
+            num=404,
+            title="Not Found",
+            img=None,
+            year=2008,
+            month=4,
+            day=1,
+        )
+        return self
+
+    def _load(self, number):
+        resp = session.get(f'{number}/info.0.json')
         resp.raise_for_status()
         vars(self).update(self._fix_numbers(resp.json()))
 

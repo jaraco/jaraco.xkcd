@@ -10,6 +10,8 @@ from requests_toolbelt import sessions
 import cachecontrol
 from cachecontrol import heuristics
 from cachecontrol.caches import file_cache
+from jaraco.functools import except_
+from jaraco.collections import dict_map
 
 
 def make_cache(path=None):
@@ -44,14 +46,8 @@ class Comic:
         """
         Given a dict-like object ob, ensure any integers are integers.
         """
-
-        def make_int(val):
-            try:
-                return int(val)
-            except Exception:
-                return val
-
-        return ((key, make_int(value)) for key, value in ob.items())
+        safe_int = except_(TypeError, ValueError, use='args[0]')(int)
+        return dict_map(safe_int, ob)
 
     @classmethod
     def latest(cls):

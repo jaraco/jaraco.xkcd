@@ -110,6 +110,6 @@ class Comic:
 with contextlib.suppress(ImportError):
     core = importlib.import_module('pmxbot.core')
 
-    @core.command()  # type: ignore
+    @core.command()  # type: ignore  # pragma: no cover
     def xkcd(rest):
-        return Comic.search(rest) if rest else Comic.random()
+        return Comic.search(rest) if rest else Comic.random()  # pragma: no cover

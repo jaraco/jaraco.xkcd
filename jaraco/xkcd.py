@@ -66,7 +66,10 @@ class Comic:
     @classmethod
     def random(cls):
         """
-        Return a randomly-selected comic
+        Return a randomly-selected comic.
+
+        >>> Comic.random()
+        Comic(...)
         """
         latest = cls.latest()
         return cls(random.randint(1, latest.number))

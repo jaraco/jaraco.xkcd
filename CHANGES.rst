@@ -1,3 +1,8 @@
+v3.0.1
+======
+
+Better test coverage. Removed ``Comic.older()``.
+
 v3.0.0
 ======
 

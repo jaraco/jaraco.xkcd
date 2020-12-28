@@ -11,6 +11,11 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v2
+      - name: Cache Requests
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/xkcd
+          key: xkcd-requests
       - name: Setup Python
         uses: actions/setup-python@v2
         with:

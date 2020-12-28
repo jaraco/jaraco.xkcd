@@ -4,6 +4,7 @@ import importlib
 import contextlib
 import datetime
 import pathlib
+import itertools
 
 import jaraco.text
 from requests_toolbelt import sessions
@@ -112,6 +113,8 @@ class Comic:
         Comic(1179)
         >>> Comic.search('2013-02-27').title
         'ISO 8601'
+        >>> Comic.search('2020-12-25').title
+        'Wrapping Paper'
         """
         matches = (comic for comic in cls.all() if text in comic.full_text)
         return next(matches, None)
@@ -122,7 +125,13 @@ class Comic:
 
     @property
     def full_text(self):
-        return jaraco.text.FoldedCase('|'.join(map(str, vars(self).values())))
+        """
+        >>> comic = Comic.random()
+        >>> str(comic.date) in comic.full_text
+        True
+        """
+        values = itertools.chain(vars(self).values(), [self.date])
+        return jaraco.text.FoldedCase('|'.join(map(str, values)))
 
     def __repr__(self):
         return f'{self.__class__.__name__}({self.number})'

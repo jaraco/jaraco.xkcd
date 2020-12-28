@@ -4,6 +4,8 @@ import importlib
 import contextlib
 import datetime
 
+from typing import Dict
+
 import jaraco.text
 import requests
 
@@ -13,7 +15,7 @@ session = requests.session()
 class Comic:
     root = 'https://xkcd.com/'
 
-    __cache = {}
+    __cache: 'Dict[int, Comic]' = {}
 
     def __new__(cls, number):
         return cls.__cache.setdefault(number, super().__new__(cls))
@@ -98,6 +100,6 @@ class Comic:
 with contextlib.suppress(ImportError):
     core = importlib.import_module('pmxbot.core')
 
-    @core.command()
+    @core.command()  # type: ignore
     def xkcd(rest):
         return Comic.search(rest) if rest else Comic.random()

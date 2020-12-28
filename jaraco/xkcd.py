@@ -6,9 +6,22 @@ import datetime
 
 import jaraco.text
 import requests
-import cachecontrol.caches.file_cache
+import cachecontrol
+from cachecontrol import heuristics
 
-session = cachecontrol.CacheControl(requests.Session())
+session = cachecontrol.CacheControl(
+    requests.Session(),
+    heuristic=heuristics.ExpiresAfter(days=365 * 20),
+)
+
+with contextlib.suppress(Exception):
+    session.get_adapter('http://').cache.data.update(eval(open('saved.txt').read()))
+
+
+def save_cache():
+    tuple(Comic.older())
+    with open('saved.txt', 'w') as strm:
+        strm.write(str(session.get_adapter('http://').cache.data))
 
 
 class Comic:
@@ -54,6 +67,11 @@ class Comic:
     def all(cls):
         latest = cls.latest()
         return map(cls, range(latest.number, 0, -1))
+
+    @classmethod
+    def older(cls):
+        latest = cls.latest()
+        return map(cls, range(latest.number - 100, 0, -1))
 
     @classmethod
     def random(cls):

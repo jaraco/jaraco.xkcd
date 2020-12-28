@@ -1,3 +1,11 @@
+v3.0.0
+======
+
+Require Python 3.6 or later.
+
+Requests are now cached in ~/.cache/xkcd. Location can be overridden
+with ``XKCD_CACHE_DIR``.
+
 2.0
 ===
 

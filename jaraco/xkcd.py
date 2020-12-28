@@ -15,7 +15,7 @@ from cachecontrol.caches import file_cache
 
 def make_cache(path=None):
     default = pathlib.Path('~/.cache/xkcd').expanduser()
-    path = os.environ.get('XKCD_CACHE_PATH', path or default)
+    path = os.environ.get('XKCD_CACHE_DIR', path or default)
     return file_cache.FileCache(path)
 
 

@@ -3,8 +3,7 @@ import random
 import importlib
 import contextlib
 import datetime
-
-from typing import Dict
+import functools
 
 import jaraco.text
 import requests
@@ -15,10 +14,9 @@ session = requests.session()
 class Comic:
     root = 'https://xkcd.com/'
 
-    __cache: 'Dict[int, Comic]' = {}
-
+    @functools.lru_cache()  # type: ignore
     def __new__(cls, number):
-        return cls.__cache.setdefault(number, super().__new__(cls))
+        return super().__new__(cls)
 
     def __init__(self, number):
         if vars(self):

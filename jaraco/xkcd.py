@@ -1,27 +1,29 @@
+import os
 import urllib.parse
 import random
 import importlib
 import contextlib
 import datetime
+import pathlib
 
 import jaraco.text
 import requests
 import cachecontrol
 from cachecontrol import heuristics
+from cachecontrol.caches import file_cache
+
+
+def make_cache(path=None):
+    default = pathlib.Path('~/.cache/xkcd').expanduser()
+    path = os.environ.get('XKCD_CACHE_PATH', path or default)
+    return file_cache.FileCache(path)
+
 
 session = cachecontrol.CacheControl(
     requests.Session(),
     heuristic=heuristics.ExpiresAfter(days=365 * 20),
+    cache=make_cache(),
 )
-
-with contextlib.suppress(Exception):
-    session.get_adapter('http://').cache.data.update(eval(open('saved.txt').read()))
-
-
-def save_cache():
-    tuple(Comic.older())
-    with open('saved.txt', 'w') as strm:
-        strm.write(str(session.get_adapter('http://').cache.data))
 
 
 class Comic:

@@ -55,7 +55,8 @@ class Comic:
 
     @classmethod
     def latest(cls):
-        resp = session.get('info.0.json')
+        headers = {'Cache-Control': 'no-cache'}
+        resp = session.get('info.0.json', headers=headers)
         resp.raise_for_status()
         return cls(resp.json()['num'])
 

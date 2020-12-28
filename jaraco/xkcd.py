@@ -73,7 +73,7 @@ class Comic:
         xkcd 936:Password Strength \
 (https://imgs.xkcd.com/comics/password_strength.png)
         >>> Comic.search('Horse battery')
-        Comic(936)
+        Comic(2241)
         >>> Comic.search('ISO 8601')
         Comic(1179)
         >>> Comic.search('2013-02-27').title

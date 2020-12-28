@@ -24,6 +24,8 @@ class Comic:
         path = '{number}/info.0.json'.format(**locals())
         url = urllib.parse.urljoin(self.root, path)
         resp = session.get(url)
+        if number == 404:
+            return
         resp.raise_for_status()
         vars(self).update(self._fix_numbers(resp.json()))
 

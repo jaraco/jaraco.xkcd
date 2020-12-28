@@ -64,11 +64,6 @@ class Comic:
         return map(cls, range(latest.number, 0, -1))
 
     @classmethod
-    def older(cls):
-        latest = cls.latest()
-        return map(cls, range(latest.number - 100, 0, -1))
-
-    @classmethod
     def random(cls):
         """
         Return a randomly-selected comic

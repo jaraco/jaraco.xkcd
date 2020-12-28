@@ -1,5 +1,4 @@
 import os
-import urllib.parse
 import random
 import importlib
 import contextlib
@@ -7,7 +6,7 @@ import datetime
 import pathlib
 
 import jaraco.text
-import requests
+from requests_toolbelt import sessions
 import cachecontrol
 from cachecontrol import heuristics
 from cachecontrol.caches import file_cache
@@ -20,21 +19,18 @@ def make_cache(path=None):
 
 
 session = cachecontrol.CacheControl(
-    requests.Session(),
+    sessions.BaseUrlSession('https://xkcd.com/'),
     heuristic=heuristics.ExpiresAfter(days=365 * 20),
     cache=make_cache(),
 )
 
 
 class Comic:
-    root = 'https://xkcd.com/'
-
     def __init__(self, number):
         if vars(self):
             return
         path = '{number}/info.0.json'.format(**locals())
-        url = urllib.parse.urljoin(self.root, path)
-        resp = session.get(url)
+        resp = session.get(path)
         if number == 404:
             return
         resp.raise_for_status()
@@ -60,8 +56,7 @@ class Comic:
 
     @classmethod
     def latest(cls):
-        url = urllib.parse.urljoin(cls.root, 'info.0.json')
-        resp = session.get(url)
+        resp = session.get('info.0.json')
         resp.raise_for_status()
         return cls(resp.json()['num'])
 

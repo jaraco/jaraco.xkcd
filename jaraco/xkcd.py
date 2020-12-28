@@ -26,7 +26,10 @@ class Comic:
         resp = session.get(url)
         resp.raise_for_status()
         vars(self).update(self._fix_numbers(resp.json()))
-        self.date = datetime.date(self.year, self.month, self.day)
+
+    @property
+    def date(self):
+        return datetime.date(self.year, self.month, self.day)
 
     @staticmethod
     def _fix_numbers(ob):

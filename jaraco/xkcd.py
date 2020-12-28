@@ -29,8 +29,6 @@ session = cachecontrol.CacheControl(
 
 class Comic:
     def __init__(self, number):
-        if vars(self):
-            return
         resp = session.get(f'{number}/info.0.json')
         if number == 404:
             return

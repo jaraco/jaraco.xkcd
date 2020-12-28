@@ -37,6 +37,10 @@ class Comic:
 
     @property
     def date(self):
+        """
+        >>> print(Comic(1).date)
+        2006-01-01
+        """
         return datetime.date(self.year, self.month, self.day)
 
     @staticmethod

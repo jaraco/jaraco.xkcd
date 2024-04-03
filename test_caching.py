@@ -1,6 +1,7 @@
 import pytest
-from jaraco import xkcd
 from tempora import timing
+
+from jaraco import xkcd
 
 
 @pytest.fixture

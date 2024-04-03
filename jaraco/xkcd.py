@@ -1,18 +1,19 @@
-import os
-import random
-import importlib
 import contextlib
 import datetime
-import pathlib
+import importlib
 import itertools
+import os
+import pathlib
+import random
 
-import jaraco.text
-from requests_toolbelt import sessions
 import cachecontrol
 from cachecontrol import heuristics
 from cachecontrol.caches import file_cache
-from jaraco.functools import except_
+from requests_toolbelt import sessions
+
+import jaraco.text
 from jaraco.collections import dict_map
+from jaraco.functools import except_
 
 
 def make_cache(path=None):

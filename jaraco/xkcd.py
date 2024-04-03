@@ -110,7 +110,7 @@ class Comic:
         >>> Comic.search('Horse battery')
         Comic(2241)
         >>> Comic.search('ISO 8601')
-        Comic(1179)
+        Comic(2562)
         >>> Comic.search('2013-02-27').title
         'ISO 8601'
         >>> Comic.search('2020-12-25').title

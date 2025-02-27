@@ -1,18 +1,20 @@
 import pytest
+from py.path import local  # type: ignore[import-untyped]
 from tempora import timing
 
 from jaraco import xkcd
 
 
 @pytest.fixture
-def fresh_cache(tmpdir, monkeypatch):
+def fresh_cache(tmpdir: local, monkeypatch: pytest.MonkeyPatch) -> None:
     adapter = xkcd.session.get_adapter('http://')
     cache = xkcd.make_cache(tmpdir / 'xkcd')
     monkeypatch.setattr(adapter, 'cache', cache)
     monkeypatch.setattr(adapter.controller, 'cache', cache)
 
 
-def test_requests_cached(fresh_cache):
+@pytest.mark.usefixtures("fresh_cache")
+def test_requests_cached() -> None:
     """
     A second pass loading Comics should be substantially faster than the
     first.

@@ -54,3 +54,10 @@ extlinks = {
 extensions += ['sphinx.ext.extlinks']
 
 # local
+
+# jaraco/jaraco.xkcd#1
+nitpick_ignore += [
+    ('py:class', 'jaraco.text.FoldedCase'),
+    ('py:class', 'StrPath'),
+    ('py:class', 'file_cache.FileCache'),
+]

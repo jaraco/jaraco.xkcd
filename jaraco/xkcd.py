@@ -7,13 +7,12 @@ import pathlib
 import random
 
 import cachecontrol
+import jaraco.text
 from cachecontrol import heuristics
 from cachecontrol.caches import file_cache
-from requests_toolbelt import sessions
-
-import jaraco.text
 from jaraco.collections import dict_map
 from jaraco.functools import except_
+from requests_toolbelt import sessions
 
 
 def make_cache(path=None):
